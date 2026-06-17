@@ -1,0 +1,13 @@
+﻿item,value
+tea_file,D:\bayes\Tea_match\养生茶饮匹配逻辑.xlsx
+term_file,D:\bayes\Tea_match\inputs\医临床常见症状术语规范.xlsx
+tea_count,16
+tea_symptom_link_count,75
+step2_combo_rule_count,39
+step3_constitution_fallback_count,38
+step4_organ_fallback_count,18
+alias_count,27074
+rag_doc_count,192
+unmatched_tea_term_count,60
+western_disease_alias_count,43
+business_alias_count,17

@@ -1,0 +1,4 @@
+Tea_match/.venv/
+__pycache__/
+*.pyc
+qdrant_storage/

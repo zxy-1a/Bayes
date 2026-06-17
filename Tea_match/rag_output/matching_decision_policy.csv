@@ -1,0 +1,5 @@
+﻿stage,priority,action,weight
+step1_symptom_initial_screen,1,Use tea_symptom_index and exact/alias matches first. These are primary recommendations.,1.0
+step2_symptom_combination,2,"If a combination rule is matched, recommend the rule teas. Add-on teas are included only when their trigger condition is present.",1.2
+step3_constitution_fallback,3,Use constitution fallback only when step1 and step2 do not match any user complaint.,0.6
+step4_organ_fallback,4,"Use organ fallback together with constitution fallback only when step1 and step2 do not match. If the same tea appears in both, increase its fallback rank.",0.6

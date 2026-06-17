@@ -1,0 +1,29 @@
+﻿symptom,tea_name,course,source_row,raw_symptom,category,subtype,note
+改善心肺功能弱,元气茶,10袋,2,"气虚,改善心肺功能弱,易疲劳",business_alias,symptom_state,oral symptom/state wording
+易疲劳,元气茶,10袋,2,"气虚,改善心肺功能弱,易疲劳",business_alias,symptom_state,oral symptom/state wording
+有湿气,六宝茶,10袋,3,"有湿气,手脚不温",business_alias,symptom_state,oral symptom/state wording
+手脚不温,六宝茶,10袋,3,"有湿气,手脚不温",business_alias,symptom_state,oral symptom/state wording
+护肝明目,桑菊茶,10袋,11,护肝明目、缓解眼疲劳,business_alias,function_copy,marketing/functional wording
+缓解眼疲劳,桑菊茶,10袋,11,护肝明目、缓解眼疲劳,business_alias,function_copy,marketing/functional wording
+护肝利胆,石斛茶,10袋,13,"脂肪肝、肝炎、肝硬化,胆囊炎、胆结石;护肝利胆,
+抗病毒,抗脂肪化,抗纤维化",business_alias,function_copy,marketing/functional wording
+抗病毒,石斛茶,10袋,13,"脂肪肝、肝炎、肝硬化,胆囊炎、胆结石;护肝利胆,
+抗病毒,抗脂肪化,抗纤维化",business_alias,function_copy,marketing/functional wording
+抗脂肪化,石斛茶,10袋,13,"脂肪肝、肝炎、肝硬化,胆囊炎、胆结石;护肝利胆,
+抗病毒,抗脂肪化,抗纤维化",business_alias,function_copy,marketing/functional wording
+抗纤维化,石斛茶,10袋,13,"脂肪肝、肝炎、肝硬化,胆囊炎、胆结石;护肝利胆,
+抗病毒,抗脂肪化,抗纤维化",business_alias,function_copy,marketing/functional wording
+腰酸腿软,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,symptom_state,oral symptom/state wording
+女性宫寒,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,tcm_state,TCM or condition wording
+月经不调,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,tcm_state,TCM or condition wording
+痛经,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,tcm_state,TCM or condition wording
+腰酸腿软,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,symptom_state,oral symptom/state wording
+面容枯暗,固本茶,10袋,14,"男性阳痿、早泄、腰酸腿软;女性宫寒、月经
+不调,痛经,腰酸腿软,面容枯暗",business_alias,needs_review,manual check
+心脏亚健康,参灵茶,10袋,15,"心肌炎、心肌炎后遗症、冠心病、心脏亚健康、
+气血不足",business_alias,symptom_state,oral symptom/state wording

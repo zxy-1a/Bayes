@@ -1,0 +1,8 @@
+{
+  "backend": "tfidf_char",
+  "embedding_dim": 4608,
+  "note": "Local lexical vector index. Good for pipeline testing; use sentence-transformers/Qdrant for production semantic search.",
+  "source": "D:\\bayes\\Tea_match\\rag_output\\tea_rag_documents.jsonl",
+  "doc_count": 192,
+  "store_dir": "D:\\bayes\\Tea_match\\vector_store\\tea_rag"
+}
