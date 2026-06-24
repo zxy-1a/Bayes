@@ -4,7 +4,10 @@ import json
 import os
 from typing import Any
 
-from openai import OpenAI
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
 
 from tea_match.normalization.candidate_retriever import CandidateRetriever
 
@@ -32,11 +35,19 @@ class SemanticNormalizer:
         selected_symptoms: list[str],
         complaints: list[dict[str, Any]],
     ) -> dict[str, Any]:
-        inputs = self._collect_inputs(query, selected_symptoms, complaints)
         mappings = []
         canonical_terms: list[str] = []
         seen_terms = set()
 
+        for mapping in self._build_selected_symptom_mappings(selected_symptoms):
+            mappings.append(mapping)
+            for term in mapping.get("related_terms", []) or []:
+                term = str(term or "").strip()
+                if term and term not in seen_terms:
+                    canonical_terms.append(term)
+                    seen_terms.add(term)
+
+        inputs = self._collect_inputs(query, complaints)
         for text in inputs:
             candidates = self.candidate_retriever.retrieve(text, top_k=8)
             if not candidates:
@@ -53,19 +64,54 @@ class SemanticNormalizer:
 
         return {"mappings": mappings, "canonical_terms": canonical_terms}
 
-    def _collect_inputs(self, query: str, selected_symptoms: list[str], complaints: list[dict[str, Any]]) -> list[str]:
+    def _build_selected_symptom_mappings(self, selected_symptoms: list[str]) -> list[dict[str, Any]]:
+        mappings: list[dict[str, Any]] = []
+        for symptom in selected_symptoms:
+            text = str(symptom or "").strip()
+            if not text:
+                continue
+            mappings.append(
+                {
+                    "raw": text,
+                    "canonical": text,
+                    "related_terms": [text],
+                    "confidence": 1.0,
+                    "method": "exact_selected_symptom",
+                    "matched_alias": text,
+                    "candidates": [
+                        {
+                            "canonical": text,
+                            "related_terms": [text],
+                            "score": 1.0,
+                            "matched_alias": text,
+                            "sources": ["selected_symptoms"],
+                        }
+                    ],
+                }
+            )
+        return mappings
+
+    def _collect_inputs(self, query: str, complaints: list[dict[str, Any]]) -> list[str]:
         items: list[str] = []
-        for value in [query, *selected_symptoms]:
-            self._append_unique(items, value)
+        has_free_text_complaints = False
         for complaint in complaints:
             if not isinstance(complaint, dict):
                 continue
+            source = complaint.get("source") or []
+            if isinstance(source, str):
+                source = [source]
+            if "selected_symptoms" in source:
+                continue
+            has_free_text_complaints = True
             self._append_unique(items, complaint.get("raw", ""))
             terms = complaint.get("normalized_terms") or []
             if isinstance(terms, str):
                 terms = [terms]
             for term in terms:
                 self._append_unique(items, term)
+
+        if not has_free_text_complaints:
+            self._append_unique(items, query)
         return items
 
     def _select_candidate(self, text: str, candidates: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -130,7 +176,7 @@ class SemanticNormalizer:
             return False
         if os.getenv("USE_LLM_NORMALIZATION", "").lower() in {"0", "false", "no", "off"}:
             return False
-        return bool(api_key_from_env())
+        return bool(api_key_from_env()) and OpenAI is not None
 
     @staticmethod
     def _append_unique(items: list[str], value: object) -> None:
@@ -163,3 +209,6 @@ def strip_code_fence(text: str) -> str:
         if text.endswith("```"):
             text = text[:-3].strip()
     return text
+
+
+

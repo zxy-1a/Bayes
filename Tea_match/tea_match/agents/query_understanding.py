@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import os
@@ -26,11 +26,30 @@ class QueryUnderstandingAgent:
         memory_summary: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         selected_symptoms = selected_symptoms or []
+        if self._should_use_mock():
+            data = self._run_understand_query(query, selected_symptoms, use_mock=True, fallback_to_mock=False)
+        else:
+            try:
+                data = self._run_understand_query(query, selected_symptoms, use_mock=False, fallback_to_mock=True)
+            except RuntimeError:
+                data = self._run_understand_query(query, selected_symptoms, use_mock=True, fallback_to_mock=False)
+        complaints = data.get("complaints", [])
+        return complaints if isinstance(complaints, list) else []
+
+    def _run_understand_query(
+        self,
+        query: str,
+        selected_symptoms: list[str],
+        use_mock: bool,
+        fallback_to_mock: bool,
+    ) -> dict[str, Any]:
         cmd = [sys.executable, "understand_query.py", query or "", "--pretty"]
         if selected_symptoms:
             cmd.extend(["--selected-symptoms", *selected_symptoms])
-        if self._should_use_mock():
+        if use_mock:
             cmd.append("--mock")
+        elif fallback_to_mock:
+            cmd.append("--fallback-to-mock")
 
         result = subprocess.run(
             cmd,
@@ -45,13 +64,12 @@ class QueryUnderstandingAgent:
             raise RuntimeError(message)
 
         try:
-            data = json.loads(result.stdout)
+            return json.loads(result.stdout)
         except json.JSONDecodeError as exc:
             raise RuntimeError(f"understand_query returned invalid JSON: {exc}") from exc
-        complaints = data.get("complaints", [])
-        return complaints if isinstance(complaints, list) else []
 
     def _should_use_mock(self) -> bool:
         if self.use_mock is not None:
             return self.use_mock
         return os.getenv("USE_MOCK_UNDERSTANDING", "").lower() in MOCK_ENV_VALUES
+

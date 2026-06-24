@@ -1,0 +1,49 @@
+﻿{
+  "user_id": "wx_user_001",
+  "query": "最近胃不舒服，容易累，晚上睡得不太好",
+  "selected_symptoms": [
+    "饭后饱胀"
+  ],
+  "tongue_result": {
+    "tizhi_name": "气虚质",
+    "char": [
+      {
+        "type": "白苔",
+        "probability": 0.8952,
+        "type_details": "白苔"
+      },
+      {
+        "type": "有齿痕",
+        "probability": 1.0,
+        "type_details": "齿痕舌(非常明显)"
+      },
+      {
+        "type": "胖大舌",
+        "probability": 0.9215,
+        "type_details": "胖大舌(非常明显)"
+      }
+    ],
+    "syndrome": [
+      {
+        "syndrome": "脾阳虚弱",
+        "bingjigaiyao": "脾阳虚弱，清阳不升"
+      }
+    ]
+  },
+  "sublingual_result": {
+    "characters": {
+      "舌下淤堵": "0.99999"
+    }
+  },
+  "pulse_result": {
+    "xushi_zchi": [
+      "虚脉"
+    ],
+    "xushi_zguan": [
+      "常脉"
+    ],
+    "chishu_zchi": [
+      "迟脉"
+    ]
+  }
+}

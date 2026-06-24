@@ -50,8 +50,17 @@ def term_matches(term: str, haystack: str, alias_map: dict[str, list[str]]) -> b
     if not term:
         return False
     normalized_haystack = norm_text(haystack)
+    normalized_tokens = {norm_text(token) for token in split_terms(haystack) if norm_text(token)}
     candidates = alias_map.get(term, [term])
-    return any(norm_text(candidate) in normalized_haystack for candidate in candidates if candidate)
+    for candidate in candidates:
+        normalized_candidate = norm_text(candidate)
+        if not normalized_candidate:
+            continue
+        if normalized_candidate in normalized_tokens:
+            return True
+        if len(normalized_candidate) >= 3 and normalized_candidate in normalized_haystack:
+            return True
+    return False
 
 
 def rule_matches(rule: dict[str, str], haystack: str, alias_map: dict[str, list[str]]) -> bool:
